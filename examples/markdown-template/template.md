@@ -5,7 +5,7 @@ author:
   - Your Company
 date: \today
 lang: "en-US" 
-# teste
+
 # Layout Configs
 toc: true
 toc-own-page: true
