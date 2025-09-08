@@ -82,19 +82,19 @@ echo "==> Extraindo Eisvogel..."
 tar -xzf "${WORKDIR}/Eisvogel.tar.gz" -C "${WORKDIR}"
 
 EISVOGEL_DIR="${WORKDIR}/Eisvogel-${EISVOGEL_VERSION}"
-if [[ ! -f "${EISVOGEL_DIR}/eisvogel.tex" ]]; then
-  echo "Falha: não encontrei eisvogel.tex no tarball."
+if [[ ! -f "${EISVOGEL_DIR}/eisvogel.latex" ]]; then
+  echo "Falha: não encontrei eisvogel.latex no tarball."
   exit 1
 fi
 
-echo "==> Instalando template 'eisvogel.tex'..."
+echo "==> Instalando template 'eisvogel.latex'..."
 if $INSTALL_USER; then
-  install -m 0644 "${EISVOGEL_DIR}/eisvogel.tex" "${USER_TEMPLATES_DIR}/eisvogel.tex"
-  echo "   → Instalado para o usuário em: ${USER_TEMPLATES_DIR}/eisvogel.tex"
+  install -m 0644 "${EISVOGEL_DIR}/eisvogel.latex" "${USER_TEMPLATES_DIR}/eisvogel.latex"
+  echo "   → Instalado para o usuário em: ${USER_TEMPLATES_DIR}/eisvogel.latex"
 fi
 if $INSTALL_SYSTEM; then
-  sudo install -m 0644 "${EISVOGEL_DIR}/eisvogel.tex" "${SYSTEM_TEMPLATES_DIR}/eisvogel.tex"
-  echo "   → Instalado no sistema em: ${SYSTEM_TEMPLATES_DIR}/eisvogel.tex"
+  sudo install -m 0644 "${EISVOGEL_DIR}/eisvogel.latex" "${SYSTEM_TEMPLATES_DIR}/eisvogel.latex"
+  echo "   → Instalado no sistema em: ${SYSTEM_TEMPLATES_DIR}/eisvogel.latex"
 fi
 
 echo "==> Verificando presença das fontes-chave..."
