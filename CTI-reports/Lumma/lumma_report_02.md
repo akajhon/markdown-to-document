@@ -20,14 +20,14 @@ papersize: "a4"
 # Visual Configs
 titlepage-logo: "logo.png"
 logo-width: 100mm
-titlepage-background: "background.jpg"
+titlepage-background: "background.png"
 titlepage-text-color: "000000"
 titlepage-rule-color: "0033A0" 
 titlepage-rule-height: 2
 
 # Header and Footer
 header-left: "Independent CTI Report - Lumma Stealer"
-header-right: "\\includegraphics[width=25mm]{logo.png}"
+header-right: "\\includegraphics[width=15mm]{logo.png}"
 footer-left: "\\footnotesize CTI Report | Confidential"
 footer-right: "Page \\thepage\\hspace{2pt} of \\pageref{LastPage}"
 
@@ -107,8 +107,8 @@ header-includes:
 ## Endpoint Artifacts
 | Type          | Description                           | Tactic               |
 |---------------|---------------------------------------|----------------------|
-| Registry Key  | HKCU\Software\Microsoft\Windows\Run   | Persistence          |
-| File Drop     | %AppData%\Roaming\lumma\client.exe    | Execution, Persistence |
+| Registry Key  | HKCU\\Software\\Microsoft\\Windows\\Run   | Persistence          |
+| File Drop     | %AppData%\\Roaming\\lumma\\client.exe    | Execution, Persistence |
 
 ## Network Artifacts
 | Type         | Description                     | Kill Chain Stage |

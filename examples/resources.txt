@@ -1,0 +1,8 @@
+https://www.forcepoint.com/blog/x-labs/unmasking-lumma-stealer-campaign
+https://www.netskope.com/blog/lumma-stealer-fake-captchas-new-techniques-to-evade-detection
+https://github.com/netskopeoss/NetskopeThreatLabsIOCs/tree/main/Malware/LummaStealer/IOCs
+https://www.microsoft.com/en-us/security/blog/2025/05/21/lumma-stealer-breaking-down-the-delivery-techniques-and-capabilities-of-a-prolific-infostealer/
+https://www.trellix.com/blogs/research/a-deep-dive-into-the-latest-version-of-lumma-infostealer/
+https://www.darktrace.com/ja/blog/the-rise-of-the-lumma-info-stealer
+https://www.gdatasoftware.com/blog/2025/03/38154-lummastealer-fake-recaptcha
+https://labs.withsecure.com/publications/reverse-engineering-a-lumma-infection
