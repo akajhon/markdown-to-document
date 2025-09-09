@@ -19,16 +19,16 @@ papersize: "a4"
 
 # Visual Configs
 titlepage-logo: "logo.png"
-logo-width: 125mm
-titlepage-background: "background.jpg"
-titlepage-text-color: "000000"
+logo-width: 110mm
+titlepage-background: "background.png"
+titlepage-text-color: "F0F8FE"
 titlepage-rule-color: "0033A0"
 titlepage-rule-height: 2
 
 # Header and Footer
 header-left: "\\thetitle"
-header-right: "\\includegraphics[width=30mm]{logo.png}"
-footer-left: "\\footnotesize \\hspace{2pt} | \\hspace{2pt} TLP: GREEN"
+header-right: "\\raisebox{-0.2\\height}{\\includegraphics[width=15mm]{logo.png}}"
+footer-left: "\\footnotesize \\hspace{2pt} \\hspace{2pt} TLP: GREEN"
 footer-right: "Page \\thepage\\hspace{2pt} of \\pageref{LastPage}"
 
 # Table Configs
