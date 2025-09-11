@@ -129,6 +129,12 @@ The threat actor "Shamel" (also known as "Lumma") is a Russian-speaking develope
     \caption{Lumma stealer infection chain}
 \end{figure}
 
+# Análise do Hash Encontrado
+::: {.indented}
+65eb366739361b97fb68c0ac4b9fbaad2ac26e0c30a21ef0ad0a756177e22e94
+:::
+
+
 # Vítimas
 ::: {.indented}
 O grupo RansomHouse tem como alvo principal países como Estados Unidos, Europa e Ásia. Os 10 principais setores mais afetados pelo RansomHouse de 1º de janeiro de 2023 a 22 de maio de 2024 foram os setores: farmacêuticos, tecnológicos, assistência médica, serviços de suporte empresarial e aeroespacial.
@@ -157,24 +163,20 @@ The Lumma Stealer represents a mature and resilient threat within the cybercrime
 
 # Técnicas, Táticas e Procedimentos (TTPs)
 
-| Cyber Kill Chain | Tática | Técnica | Procedimento | D3FEND |
+| Kill Chain Stage | Tactic | Technique | Procedure (Concise) | D3FEND |
 | :--- | :--- | :--- | :--- | :--- |
-| **S1 Reconnaissance** | - | - | O adversário realiza reconhecimento passivo ao identificar software popular (ex: Notepad++) ou temas de interesse (cheats de jogos) para criar versões "pirateadas" e campanhas de malvertising eficazes. | - |
-| **S2 Weaponization** | - | - | Através do painel MaaS, o afiliado configura e empacota a carga do Lumma Stealer, frequentemente utilizando *crypters* para ofuscar o binário final e evitar a deteção baseada em assinaturas. | - |
-| **S3 Delivery** | Acesso Inicial | Phishing: Link de Spearphishing (T1566.002) | O malware é entregue via e-mails com URLs maliciosos, publicidade maliciosa (*malvertising*) em resultados de busca ou links em descrições de vídeos do YouTube e repositórios do GitHub. | **D3-URLA (Análise de URL):** Analisar URLs em busca de indicadores maliciosos antes da entrega ao utilizador. |
-| **S4 Exploitation** | Acesso Inicial | Execução pelo Utilizador: Ficheiro Malicioso (T1204.002) | A cadeia de ataque depende da exploração da confiança do utilizador, que é enganado para executar um ficheiro (MSI, ZIP, EXE) ou um comando malicioso (técnica "ClickFix"). | **D3-EFA (Análise de Ficheiro Executável):** Analisar executáveis descarregados numa sandbox antes de permitir a execução. |
-| **S5 Installation** | Execução | Intérprete de Comando e Scripting: PowerShell (T1059.001) | Utiliza scripts PowerShell ofuscados para descarregar e executar as fases seguintes da infecção, muitas vezes com a janela oculta. | **D3-PSA (Análise de Criação de Processos):** Monitorizar execuções anómalas do PowerShell e processos pai suspeitos. |
-| | Execução | Execução de Proxy de Binário do Sistema: Mshta (T1218.005) | O LOLBIN `mshta.exe` é usado para executar scripts remotos (HTA), contornando controlos de segurança do navegador. | **D3-LONA (Análise de Tráfego de Rede Local):** Monitorizar ligações de rede de saída de binários que normalmente não deveriam iniciá-las. |
-| | Evasão de Defesa | Ficheiros ou Informação Ofuscados (T1027) | As cargas são ofuscadas com encriptação e codificação para frustrar a análise estática e a descompilação. | **D3-SDA (Análise de Chamadas de Sistema):** Analisar sequências de chamadas de sistema para identificar comportamento de desempacotamento. |
-| | Evasão de Defesa | Injeção de Processos: Process Hollowing (T1055.012) | Injeta o seu código malicioso na memória de um processo legítimo suspenso (ex: `BitLockerToGo.exe`) para se disfarçar. | **D3-PCSV (Verificação do Segmento de Código do Processo):** Verificar a integridade da memória dos processos contra o ficheiro em disco. |
-| | Evasão de Defesa | Comprometer Defesas: Desativar ou Modificar Ferramentas (T1562.001) | Contorna a AMSI ao corrigir a função `AmsiScanBuffer` na memória para desativar a monitorização de scripts. | **D3-PMP (Proteção da Memória do Processo):** Implementar funcionalidades que impeçam a modificação não autorizada de DLLs críticas. |
-| **S6 Command & Control** | Comando e Controlo | Protocolo da Camada de Aplicação: Protocolos Web (T1071.001) | A comunicação com o servidor C2 é realizada sobre HTTP/HTTPS usando pedidos POST para enviar e receber comandos. | **D3-OTF (Filtragem de Tráfego de Saída):** Filtrar e inspecionar o tráfego de saída, bloqueando ligações a domínios/IPs maliciosos conhecidos. |
-| **S7 Actions on Objective**| Acesso a Credenciais| Credenciais de Navegadores Web (T1555.003) | Localiza e desencripta as bases de dados de credenciais, cookies e dados de preenchimento automático de múltiplos navegadores. | **D3-FPA (Análise de Permissões de Ficheiros):** Monitorizar e alertar sobre processos invulgares que acedem a ficheiros sensíveis do navegador. |
-| | Recolha | Dados do Sistema Local (T1005) | Procura e recolhe ficheiros locais associados a carteiras de criptomoedas (ex: `wallet.dat`, `seed.txt`). | **D3-DC (Conteúdo Isco):** Colocar ficheiros de carteira "isco" e monitorizá-los para acesso não autorizado. |
-| | Exfiltração | Exfiltração Sobre o Canal C2 (T1041) | Os dados roubados são comprimidos, arquivados e enviados para o servidor do atacante através do canal C2 estabelecido. | **D3-NDM (Monitorização de Perda de Dados na Rede):** Monitorizar o tráfego de saída para transferências de dados invulgarmente grandes ou suspeitas. |
+| **S1 Reconnaissance** | - | - | Identificação de softwares/temas populares para atrair vítimas | - |
+| **S2 Weaponization** | - | - | Afiliado empacota carga Lumma usando crypters | - |
+| **S3 Delivery** | Initial Access | Phishing (T1566.002) | Links maliciosos via e-mail, malvertising, YouTube, GitHub | D3-URLA |
+| **S4 Exploitation** | Initial Access | User Execution (T1204.002) | Execução de arquivo malicioso ou ClickFix | D3-EFA |
+| **S5 Installation** | Execution | PowerShell (T1059.001), Mshta (T1218.005) | Scripts ofuscados e LOLBIN mshta.exe | D3-PSA / D3-LONA |
+| **S6 C2** | C2 | Web Protocols (T1071.001) | Comunicação com servidor C2 via HTTP/HTTPS POST | D3-OTF |
+| **S7 Actions on Obj.** | Credential Access | Browser Creds (T1555.003) | Roubo de cookies e senhas de navegadores | D3-FPA |
+
 
 # Artifacts
-#### Endpoint Artifacts
+
+### Endpoint Artifacts
 | Type | Description | Tactic |
 | ------ | ------ | ------ |
 | Registry Key | `HKCU\Software\Microsoft\Windows\Run` [67] | Persistence [T1547.001] |
@@ -182,15 +184,14 @@ The Lumma Stealer represents a mature and resilient threat within the cybercrime
 | File Drop | Arquivos `.accde`, `.bat`, `.a3x` no `%AppData%\Local\Temp\` [68-71] | Execution, Defense Evasion [T1059, T1027] |
 | Process Injection | Injeção em `msbuild.exe`, `regasm.exe`, `regsvcs.exe`, `explorer.exe` [40] | Defense Evasion [T1055] |
 
-#### Network Artifacts
+### Network Artifacts
 | Type | Description | Kill Chain Stage |
 | ------ | ------ | ------ |
 | HTTP POST | Exfiltração de dados para C2 com URIs como `/c2sock` e User-Agent `TeslaBrowser/5.5` [44, 67] | C2, Exfiltration [T1041, T1071.001] |
 | Telegram API | Bot usado para uploads de credenciais [43, 67] | C2 [T1102.002] |
 | C2 URLs (Exemplos) | `hxxps://payment-confirmation.82736[.]store/pgg46`, `hxxps://booking[.]procedeed-verific[.]com/goo_pdf` [72] <br> `hxxps://h3.errantrefrainundocked.shop/riii2.aspx` [33] <br> `hxxps://dogalmedical[.]org`, `hxxps://t[.]me/lolypop343` [73] | C2 [T1071.001] |
 
-### Malware
-#### Malware Hashes
+### Malware Hashes
 | Type | File Hash | Description | Kill Chain Stage |
 | ------ | ------ | ------ | ------ |
 | SHA256 | `65eb366739361b97fb68c0ac4b9fbaad2ac26e0c30a21ef0ad0a756177e22e94` (Exemplo Lumma Stealer v4) [67] | Installation, C2 [T1547, T1071] |
@@ -199,10 +200,10 @@ The Lumma Stealer represents a mature and resilient threat within the cybercrime
 | SHA1 | `ec69088d1409444de60c3c6aba5021194839d7ba` (Payload EXE de campanha Forcepoint) [73] | Installation [T1547] |
 | SHA1 | `2c8ec98431a788f18f1865c7d742deb741a927b3` (Script AutoIT .a3x de campanha Forcepoint) [73] | Execution [T1059.003] |
 
-#### Vulnerabilities
-| CVE # | CVSS Score | Patch Available (Y/N) | Remediation | Date Reported | Patch Applied (Y/N/N/A) |
-| ------ | ------ | ------ | ------ | ------ | ------ |
-| CVE-2017-11882 | 7.8 | S | Aplicar patch Microsoft Office KB2553204 [67] | 2017-11-15 | N/A |
+### Vulnerabilities
+| CVE # | CVSS Score | Patch Available (Y/N) | Remediation | Date Reported | Patch Applied (Y/N/N/A) | 
+| ------ | ------ | ------ | ------ | ------ | ------ | 
+| CVE-2017-11882 | 7.8 | S | Aplicar patch Microsoft Office KB2553204 [67] | 2017-11-15 | N/A | 
 | CVE-2021-40444 | 8.8 | S | Bloquear controles ActiveX, aplicar patch MS [67] | 2021-09-07 | N/A |
 
 ### Detection & Response
@@ -221,21 +222,20 @@ The Lumma Stealer represents a mature and resilient threat within the cybercrime
 | Defense Evasion [TA0005] | T1027: Obfuscated Files or Information | Uso de ofuscação de fluxo de controle indireto (Indirect Control Flow) [39] | Executable Code Analysis [D3-ECA] | Win32.Trojan-Stealer.LummaStealer (genérico) [74] | Antivirus | Detecção baseada em características de ofuscação do Lumma | G DATA [74] |
 | Defense Evasion [TA0005] | T1027: Obfuscated Files or Information | Bypass AMSI para evitar varredura de payload [41] | Executable Code Analysis [D3-ECA] | Behavior:Win32/MaleficAms [76] | Antivirus | Detecção de comportamento de bypass AMSI | Microsoft Defender Antivirus [76] |
 
-
 # Referências
 
 1. [Forcepoint. *Unmasking the Lumma Stealer Campaign.*](https://www.forcepoint.com/blog/x-labs/unmasking-lumma-stealer-campaign) Acessado em 10 de setembro de 2025.
 
-2. [Netskope. *Lumma Stealer: Fake CAPTCHAs & New Techniques to Evade Detection.*](https://www.netskope.com/blog/lumma-stealer-fake-captchas-new-techniques-to-evade-detection) Acessado em 10 de setembro de 2025.
+2. [Netskope. *Lumma Stealer: Fake CAPTCHAs & New Techniques to Evade Detection.*](https://www.netskope.com/blog/lumma-stealer-fake-captchas-new-techniques-to-evade-detection)
 
-3. [Netskope Threat Labs. *LummaStealer IOCs.*](https://github.com/netskopeoss/NetskopeThreatLabsIOCs/tree/main/Malware/LummaStealer/IOCs) Acessado em 10 de setembro de 2025.
+3. [Netskope Threat Labs. *LummaStealer IOCs.*](https://github.com/netskopeoss/NetskopeThreatLabsIOCs/tree/main/Malware/LummaStealer/IOCs)
 
-4. [Microsoft Security. *Lumma Stealer: Breaking down the delivery techniques and capabilities of a prolific infostealer.*](https://www.microsoft.com/en-us/security/blog/2025/05/21/lumma-stealer-breaking-down-the-delivery-techniques-and-capabilities-of-a-prolific-infostealer/) Acessado em 10 de setembro de 2025.
+4. [Microsoft Security. *Lumma Stealer: Breaking down the delivery techniques and capabilities of a prolific infostealer.*](https://www.microsoft.com/en-us/security/blog/2025/05/21/lumma-stealer-breaking-down-the-delivery-techniques-and-capabilities-of-a-prolific-infostealer/)
 
-5. [Trellix. *A Deep Dive into the Latest Version of Lumma InfoStealer.*](https://www.trellix.com/blogs/research/a-deep-dive-into-the-latest-version-of-lumma-infostealer/) Acessado em 10 de setembro de 2025.
+5. [Trellix. *A Deep Dive into the Latest Version of Lumma InfoStealer.*](https://www.trellix.com/blogs/research/a-deep-dive-into-the-latest-version-of-lumma-infostealer/)
 
-6. [Darktrace. *The Rise of the Lumma Info-Stealer.*](https://www.darktrace.com/ja/blog/the-rise-of-the-lumma-info-stealer) Acessado em 10 de setembro de 2025.
+6. [Darktrace. *The Rise of the Lumma Info-Stealer.*](https://www.darktrace.com/ja/blog/the-rise-of-the-lumma-info-stealer)
 
-7. [G DATA Software. *LummaStealer: Fake reCAPTCHA leads to info stealer infection.*](https://www.gdatasoftware.com/blog/2025/03/38154-lummastealer-fake-recaptcha) Acessado em 10 de setembro de 2025.
+7. [G DATA Software. *LummaStealer: Fake reCAPTCHA leads to info stealer infection.*](https://www.gdatasoftware.com/blog/2025/03/38154-lummastealer-fake-recaptcha)
 
-8. [WithSecure Labs. *Reverse Engineering a Lumma Infection.*](https://labs.withsecure.com/publications/reverse-engineering-a-lumma-infection) Acessado em 10 de setembro de 2025.
+8. [WithSecure Labs. *Reverse Engineering a Lumma Infection.*](https://labs.withsecure.com/publications/reverse-engineering-a-lumma-infection)
