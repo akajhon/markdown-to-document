@@ -56,7 +56,8 @@ header-includes:
   - \usepackage{etoolbox}
   - \pretocmd{\section}{\clearpage}{}{}
   - \graphicspath{{./resources/}}
-  - \usepackage{afterpage}
+  - \usepackage{eso-pic}
+  - \usepackage{geometry}
 ---
 
 \setlength{\parindent}{1.5cm}
@@ -122,9 +123,8 @@ O malware emprega uma cadeia de execução multi-estágio, frequentemente "filel
 # Diamond Model
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{diamond_model.pdf}
+    \includegraphics[width=0.8\textwidth]{diamond_model.png}
     \captionsetup{justification=centering, singlelinecheck=false, format=plain}
-    \caption{Lumma stealer infection chain}
 \end{figure}
 
 ## Adversary
@@ -197,9 +197,9 @@ Entre os setores mais afetados, destacam-se:
 :::
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\textwidth]{lumma_heatmap.png}
+    \includegraphics[width=0.8\textwidth]{lumma_heatmap.jpeg}
     \captionsetup{justification=centering, singlelinecheck=false, format=plain}
-    \caption{Mapa global de infecções atribuídas ao Lumma Stealer. Fonte: [Microsoft](https://www.microsoft.com/en-us/security/blog/2025/05/21/lumma-stealer-breaking-down-the-delivery-techniques-and-capabilities-of-a-prolific-infostealer/)}}
+    \caption{Mapa global de infecções atribuídas ao Lumma Stealer. Fonte: [Microsoft](https://www.microsoft.com/en-us/security/blog/2025/05/21/lumma-stealer-breaking-down-the-delivery-techniques-and-capabilities-of-a-prolific-infostealer/)}
 \end{figure}
 
 # Análise do Hash Encontrado
@@ -361,13 +361,18 @@ O Lumma Stealer representa uma ameaça madura e resiliente dentro do ecossistema
 
 8. [WithSecure Labs. *Reverse Engineering a Lumma Infection.*](https://labs.withsecure.com/publications/reverse-engineering-a-lumma-infection)
 
-\afterpage{%
-  \clearpage
-  \thispagestyle{empty}
-  \begin{figure}[t]
-    \centering
-    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{background.png}
-    \vfill
-    \includegraphics[width=0.4\textwidth]{logo.png}
-  \end{figure}
+
+\newpage
+\thispagestyle{empty}
+\begingroup
+\newgeometry{left=0cm,right=0cm,top=0cm,bottom=0cm}
+\AddToShipoutPicture*{%
+  \put(0,0){\includegraphics[width=\paperwidth,height=\paperheight]{background.png}}%
 }
+\vspace*{\fill}
+\begin{center}
+  \includegraphics[width=0.35\paperwidth]{logo.png}
+\end{center}
+\vspace*{1cm}
+\restoregeometry
+\endgroup
