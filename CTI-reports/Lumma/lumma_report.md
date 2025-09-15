@@ -285,13 +285,17 @@ Portanto, após a análise, conclui-se que o hash corresponde a uma amostra conf
 
 
 ### Network Artifacts
-| Tipo                 | Descrição                                                                                                                                                                               |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| HTTP POST            | Exfiltração de dados para C2 via URIs como `/c2sock` e User-Agent `TeslaBrowser/5.5` (parâmetro `act=life`)                                                                             |
-| Telegram API         | Bot usado para uploads de credenciais via `t.me/vstalnasral555` e canais associados                                                                                                     |
-| Domínios C2          | `swenku[.]xyz`, `baviip[.]xyz`, `ropyj[.]xyz`, `dogalmedical[.]org`, além de TLDs descartáveis como `.shop`, `.icu`, `.store`, `.click`                                                 |
-| URLs Maliciosas      | `hxxps://payment-confirmation.82736[.]store/pgg46`, `hxxps://booking[.]procedeed-verific[.]com/goo_pdf`, links encurtados e redirecionamentos em `.robazumuxi.com`, `.berapt-medii.com` |
-| Plataformas Abusadas | Conexões legítimas para `steamcommunity.com` e `api.msn.com` utilizadas para camuflagem                                                                                                 |
+| Tipo            | Descrição |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| User-Agent      | `TeslaBrowser/5.5` |
+| Domínio C2      | `swenku[.]xyz` |
+| Domínio C2      | `baviip[.]xyz` |
+| Domínio C2      | `ropyj[.]xyz` |
+| Domínio C2      | `dogalmedical[.]org` |
+| URL Maliciosa   | `hxxps://payment-confirmation.82736[.]store/pgg46` |
+| URL Maliciosa   | `hxxps://booking[.]procedeed-verific[.]com/goo_pdf` |
+| URL Maliciosa   | `.robazumuxi.com` |
+| URL Maliciosa   | `.berapt-medii.com` |
 
 
 ### Malware Hashes
@@ -390,3 +394,4 @@ O Lumma Stealer representa uma ameaça madura e resiliente dentro do ecossistema
 \restoregeometry
 
 \endgroup
+
