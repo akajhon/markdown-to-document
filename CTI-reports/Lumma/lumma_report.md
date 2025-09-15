@@ -9,7 +9,7 @@ lang: "en-US"
 # Layout Configs
 toc: true
 toc-own-page: true
-toc-title: "Sumário"
+toc-title: "Índice"
 numbersections: true
 titlepage: true
 listings: true
@@ -83,7 +83,6 @@ header-includes:
 ::: {.indented}
 Este Relatório de Inteligência descreve as principais informações sobre a ameaça **Lumma Stealer** e tem como objetivo auxiliar na tomada de decisão dos riscos cibernéticos. A análise teve início a partir da investigação do hash **`65eb366739361b97fb68c0ac4b9fbaad2ac26e0c30a21ef0ad0a756177e22e94`**, identificado em diferentes fontes de Threat Intelligence, que serviu como ponto de partida para a correlação de indicadores, TTPs e infraestrutura adversária.
 :::
-
 
 # Sumário
 
@@ -185,11 +184,10 @@ Nesta fase, o malware já está implantado no sistema, pronto para roubar creden
 :::
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{infectionchain.pdf}
+    \includegraphics[width=0.9\textwidth]{infectionchain.pdf}
     \captionsetup{justification=centering, singlelinecheck=false, format=plain}
     \caption{Lumma stealer infection chain}
 \end{figure}
-
 
 # Vítimas
 ::: {.indented}
@@ -293,7 +291,7 @@ Portanto, após a análise, conclui-se que o hash corresponde a uma amostra conf
 
 # Artifacts
 
-### Endpoint Artifacts
+## Endpoint Artifacts
 | Tipo                | Descrição                                                             | MITRE TTP\`s                        |
 | ------------------- | --------------------------------------------------------------------- | ----------------------------------- |
 | Chave de Registo    | `HKCU\Software\Microsoft\Windows\Run`                                 | Persistência – T1547.001            |
@@ -303,8 +301,7 @@ Portanto, após a análise, conclui-se que o hash corresponde a uma amostra conf
 | Ficheiro Caído      | `%AppData%\Local\Temp\Alexander.com`                                  | Executável AutoIT compilado         |
 | Ficheiro Caído      | `%AppData%\Local\Temp\o.a3x`                                          | Script AutoIT compilado             |
 
-
-### Network Artifacts
+## Network Artifacts
 | Tipo            | Descrição |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | User-Agent      | `TeslaBrowser/5.5` |
@@ -317,8 +314,7 @@ Portanto, após a análise, conclui-se que o hash corresponde a uma amostra conf
 | URL Maliciosa   | `.robazumuxi.com` |
 | URL Maliciosa   | `.berapt-medii.com` |
 
-
-### Malware Hashes
+## Malware Hashes
 \begin{table}[htb!]
   \centering
   \renewcommand{\arraystretch}{1.1}
@@ -337,7 +333,7 @@ Portanto, após a análise, conclui-se que o hash corresponde a uma amostra conf
   \end{tabularx}
 \end{table}
 
-### Vulnerabilities
+## Vulnerabilities
 \begin{table}[htb!]
   \centering
   \renewcommand{\arraystretch}{1.1}
@@ -429,5 +425,3 @@ O Lumma Stealer representa uma ameaça madura e resiliente dentro do ecossistema
 \restoregeometry
 
 \endgroup
-
-
