@@ -260,16 +260,16 @@ Portanto, após a análise, conclui-se que o hash corresponde a uma amostra conf
 :::
 
 # Técnicas, Táticas e Procedimentos (TTPs)
+| Kill Chain Stage       | Tactic                      | Technique                                                                    | Procedure (Concise)                                                                        | D3FEND           |
+| :--------------------- | :-------------------------- | :--------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- | :--------------- |
+| **S1 Reconnaissance**  | -                           | -                                                                            | Identificação de softwares/temas populares para atrair vítimas                             | -                |
+| **S2 Weaponization**   | Resource Development        | Develop Capabilities: Malware (T1587.001)                                    | Afiliado empacota carga Lumma usando crypters/packers para evasão                          | -                |
+| **S3 Delivery**        | Initial Access              | Phishing: Link (T1566.002)                                                   | Links maliciosos via e-mail, malvertising, YouTube, GitHub                                 | D3-URLA          |
+| **S4 Exploitation**    | Initial Access              | User Execution: Malicious File (T1204.002)                                   | Execução de arquivo malicioso ou ClickFix por interação do usuário                         | D3-EFA           |
+| **S5 Installation**    | Execution / Defense Evasion | PowerShell (T1059.001), Mshta (T1218.005), Obfuscated/Encrypted File (T1027) | Scripts ofuscados e abuso de LOLBIN **mshta.exe**                                          | D3-PSA / D3-LONA |
+| **S6 C2**              | Command and Control         | Web Protocols (T1071.001), File Sharing Services (T1071.004)                 | Comunicação com servidor C2 via HTTP/HTTPS POST e uso de **Telegram API** para exfiltração | D3-OTF           |
+| **S7 Actions on Obj.** | Credential Access           | Credentials from Web Browsers (T1555.003)                                    | Roubo de cookies, senhas e tokens armazenados em navegadores                               | D3-FPA           |
 
-| Kill Chain Stage | Tactic | Technique | Procedure (Concise) | D3FEND |
-| :--- | :--- | :--- | :--- | :--- |
-| **S1 Reconnaissance** | - | - | Identificação de softwares/temas populares para atrair vítimas | - |
-| **S2 Weaponization** | - | - | Afiliado empacota carga Lumma usando crypters | - |
-| **S3 Delivery** | Initial Access | Phishing (T1566.002) | Links maliciosos via e-mail, malvertising, YouTube, GitHub | D3-URLA |
-| **S4 Exploitation** | Initial Access | User Execution (T1204.002) | Execução de arquivo malicioso ou ClickFix | D3-EFA |
-| **S5 Installation** | Execution | PowerShell (T1059.001), Mshta (T1218.005) | Scripts ofuscados e LOLBIN mshta.exe | D3-PSA / D3-LONA |
-| **S6 C2** | C2 | Web Protocols (T1071.001) | Comunicação com servidor C2 via HTTP/HTTPS POST | D3-OTF |
-| **S7 Actions on Obj.** | Credential Access | Browser Creds (T1555.003) | Roubo de cookies e senhas de navegadores | D3-FPA |
 
 # Artifacts
 
@@ -332,16 +332,16 @@ Portanto, após a análise, conclui-se que o hash corresponde a uma amostra conf
 \end{table}
 
 ### Detecção
-| Rule type | Rule Name | Concise Description | Link |
-|-----------|-----------|----------------------|------|
-| Sigma | Lumma - Possível Execução ClickFix (PowerShell Encoded) | Detecta uso de PowerShell com comandos codificados e ocultos típicos da técnica *ClickFix*. | [SigmaHQ](https://github.com/SigmaHQ/sigma) |
-| Sigma | Lumma - Mshta Execução Remota | Identifica uso do `mshta.exe` para carregar conteúdo remoto/HTA malicioso. | [SigmaHQ](https://github.com/SigmaHQ/sigma) |
-| Sigma | Lumma - Persistência Run Key | Monitora criação de chaves em `HKCU\\Software\\Microsoft\\Windows\\Run` usadas para persistência. | [SigmaHQ](https://github.com/SigmaHQ/sigma) |
-| Sigma | Lumma - Acesso a Bancos de Dados de Navegador | Detecta acesso suspeito a bases de credenciais/cookies de navegadores por processos anômalos. | [SigmaHQ](https://github.com/SigmaHQ/sigma) |
-| Sigma | Lumma - Possível Exfiltração HTTP(S) | Regras para identificar tráfego POST suspeito com URIs e User-Agents maliciosos. | [SigmaHQ](https://github.com/SigmaHQ/sigma) |
-| YARA | MAL_Lumma_Generic_v1 | Regras genéricas para detecção de amostras Lumma em disco ou memória (strings de credenciais, AMSI bypass, etc.). | [YARA Docs](https://yarahq.github.io/) |
-| YARA | MAL_ClickFix_HTA_AutoIt | Detecta payloads ClickFix/HTA/AutoIt usados em cadeias de infecção do Lumma. | [YARA Docs](https://yarahq.github.io/) |
-| YARA | MAL_Lumma_Config_IOCs | Procura artefatos típicos do Lumma (pastas `%AppData%`, URIs `/gate`, `/c2`, Telegram API). | [YARA Docs](https://yarahq.github.io/) |
+| Tipo  | Nome (com link)                                                           | Descrição                                                                 |
+| ----- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| Sigma | [Lumma - ClickFix (PowerShell Encoded)](https://github.com/SigmaHQ/sigma) | Uso de PowerShell com comandos codificados/ocultos típicos do *ClickFix*. |
+| Sigma | [Lumma - Mshta Execução Remota](https://github.com/SigmaHQ/sigma)         | Execução de `mshta.exe` para carregar conteúdo remoto/HTA malicioso.      |
+| Sigma | [Lumma - Persistência Run Key](https://github.com/SigmaHQ/sigma)          | Criação de chaves em `HKCU\Software\Microsoft\Windows\Run`.               |
+| Sigma | [Lumma - Acesso a Bancos de Navegador](https://github.com/SigmaHQ/sigma)  | Acesso suspeito a bases de credenciais/cookies.                           |
+| Sigma | [Lumma - Exfiltração HTTP(S)](https://github.com/SigmaHQ/sigma)           | Tráfego POST suspeito com URIs/User-Agents maliciosos.                    |
+| YARA  | [MAL\_Lumma\_Generic\_v1](https://yarahq.github.io/)                      | Strings típicas (creds, AMSI bypass) em disco/memória.                    |
+| YARA  | [MAL\_ClickFix\_HTA\_AutoIt](https://yarahq.github.io/)                   | Payloads HTA/AutoIt usados em ClickFix.                                   |
+| YARA  | [MAL\_Lumma\_Config\_IOCs](https://yarahq.github.io/)                     | Artefatos: `%AppData%`, URIs `/gate`, `/c2`, Telegram API.                |
 
 
 # Recomendações
@@ -394,4 +394,5 @@ O Lumma Stealer representa uma ameaça madura e resiliente dentro do ecossistema
 \restoregeometry
 
 \endgroup
+
 
