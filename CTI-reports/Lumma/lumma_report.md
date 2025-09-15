@@ -160,16 +160,23 @@ O malware emprega uma cadeia de execução multi-estágio, frequentemente "filel
 
 # Modus Operandi
 ::: {.indented}
-A cadeia de infeção do Lumma Stealer frequentemente começa quando a vítima visita um site que a redireciona para uma página falsa de CAPTCHA ou através de e-mails de phishing ou malvertising.
+A cadeia de infeção do Lumma Stealer segue um fluxo bem definido de engenharia social e execução em múltiplos estágios, com forte uso de scripts ofuscados e abuso de ferramentas nativas do Windows (LOLBINs) para contornar mecanismos de defesa.
 
-Um método de entrega particularmente eficaz é a técnica "ClickFix", onde as vítimas são enganadas por páginas falsas de CAPTCHA para colar e executar comandos maliciosos na caixa de diálogo "Executar" do Windows, contornando os controles de segurança baseados no navegador. Esta técnica de engenharia social exibe mensagens de erro falsas para enganar os usuários a executar comandos maliciosos nos seus próprios sistemas. Os comandos geralmente descarregam e executam o Lumma diretamente na memória, usando codificação `Base64`.
+- **Estágio 1**: Página Falsa com CAPTCHA
+A vítima acessa um site malicioso (via phishing, malvertising ou links manipulados) que exibe um CAPTCHA falso.
+O usuário é instruído a copiar e colar um comando na caixa "Executar" do Windows, acreditando tratar-se de uma etapa de verificação legítima.
 
-A cadeia de infeção pode incluir:
+- **Estágio 2**: Execução Inicial via Windows Run + MSHTA
+O comando acionado pela vítima invoca o mshta.exe, um utilitário legítimo do Windows, que baixa e executa um ficheiro HTA ofuscado hospedado em um servidor remoto.
+Essa etapa serve como loader inicial para a cadeia de infecção.
 
-- **Estágio 1**: Link de Confirmação de Reserva Falsa que Leva à Verificação de CAPTCHA Falsa: A vítima visita um site, possivelmente através de um e-mail de phishing. O link redireciona para uma página que contém um documento borrado do booking.com, com um CAPTCHA falso que exige que o usuário clique na caixa "Não sou um robô".
-- **Estágio 2**: Script PHP Obfuscado: Copia Script PowerShell para a Área de Transferência: O código-fonte da página revela um script JS que carrega um comando de um script PHP ofuscado e encriptado com ROT13. Após a desencriptação, o script JS copia um comando Base64 para a área de transferência da vítima.
-- **Estágio 3**: Mecanismo de Download da Carga Útil: O código Base64 desencriptado, a ser colado na caixa "Executar" do Windows, invoca um script PowerShell codificado em Base64. Este script descarrega um ficheiro para o diretório Temp e executa-o. As amostras do Lumma Stealer nesta fase são significativamente maiores, até 350% (de 2MB para 9MB), e são disfarçadas de instaladores legítimos para evitar a deteção.
-- **Estágio 4**: Carga Útil do Lumma Stealer: O ficheiro da carga útil do Lumma Stealer muda ao longo do tempo. As amostras recolhidas utilizam "Binary Padding" e "Indirect Control Flow" para dificultar a análise e a deteção por ferramentas de segurança. O malware também pode empregar a técnica "Heaven's Gate", que envolve saltos para segmentos de código de 64 bits para executar chamadas de sistema, antes de regressar ao código de 32 bits.
+- **Estágio 3**: PowerShell Obfuscado
+O HTA decompila e executa um comando PowerShell, também ofuscado.
+Esse PowerShell baixa um script PS1 maior e fortemente ofuscado, que contém mecanismos de bypass para evitar a detecção por antivírus.
+
+- **Estágio 4**: Desofuscação e Execução da Carga Final
+O script PowerShell baixa e executa outro PS1 em texto claro, que finalmente decodifica e executa a carga útil do Lumma Stealer.
+Nesta fase, o malware já está implantado no sistema, pronto para roubar credenciais, carteiras de criptomoeda e outros dados sensíveis.
 :::
 \begin{figure}[h]
     \centering
@@ -381,4 +388,5 @@ O Lumma Stealer representa uma ameaça madura e resiliente dentro do ecossistema
 \end{center}
 \vspace*{1cm}
 \restoregeometry
+
 \endgroup
