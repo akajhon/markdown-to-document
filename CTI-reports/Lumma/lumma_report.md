@@ -1,6 +1,6 @@
 ---
 title: "Relatório de Inteligência - RIT-001"
-subtitle: "Lumma Stealer Analysis"
+subtitle: "Lumma Stealer: Visão Geral Técnica"
 author:
     - João Pedro Rosa Cezarino
 date: \today
@@ -26,7 +26,7 @@ titlepage-rule-color: "0033A0"
 titlepage-rule-height: 2
 
 # Header and Footer
-header-left: "Lumma Stealer Analysis - RIT-001"
+header-left: "Lumma Stealer: Visão Geral Técnica - RIT-001"
 header-right: "\\footnotesize \\hspace{2pt}TLP: GREEN"
 #header-right: "\\raisebox{-0.2\\height}{\\includegraphics[width=15mm]{logo.png}}"
 footer-left: "\\raisebox{-0.2\\height}{\\includegraphics[width=20mm]{logo.png}}"
@@ -54,12 +54,9 @@ header-includes:
   - \usepackage{fontspec}
   - \usepackage{ulem}
   - \usepackage{etoolbox}
-  - \pretocmd{\section}{\clearpage}{}{}
-  - \graphicspath{{./resources/}}
   - \usepackage{eso-pic}
   - \usepackage{geometry}
   - \usepackage{seqsplit}
-  - \newcommand{\hash}[1]{\ttfamily\footnotesize\seqsplit{#1}}
   - \usepackage{tabularx}
   - \usepackage{booktabs}
   - \usepackage{tabularx}
@@ -67,6 +64,9 @@ header-includes:
   - \usepackage{xurl}
   - \usepackage{array}
   - \newcommand{\code}[1]{{\ttfamily\small\detokenize{#1}}}
+  - \newcommand{\hash}[1]{\ttfamily\footnotesize\seqsplit{#1}}
+  - \pretocmd{\section}{\clearpage}{}{}
+  - \graphicspath{{./resources/}}
 ---
 
 \setlength{\parindent}{1.5cm}
@@ -74,14 +74,14 @@ header-includes:
 # Introdução
 
 - **ID:** RIT-001
-- **Prioridade:** High
+- **Prioridade:** Alta
 - **Autor:** João Pedro Rosa Cezarino
-- **Título:** Lumma Stealer Analysis
-- **Nível de Confiabilidade:** B2 – Usually reliable and Probably true.
+- **Título:** Lumma Stealer: Visão Geral Técnica
+- **Nível de Confiabilidade:** B2 – Geralmente confiável e provavelmente verdadeiro
 - **Classificação da Informação:** TLP:GREEN
 
 ::: {.indented}
-Este Relatório de Inteligência descreve as principais informações sobre a ameaça **Lumma Stealer** e tem como objetivo auxiliar na tomada de decisão dos riscos cibernéticos. A análise teve início a partir da investigação do hash **`65eb366739361b97fb68c0ac4b9fbaad2ac26e0c30a21ef0ad0a756177e22e94`**, identificado em diferentes fontes de Threat Intelligence, que serviu como ponto de partida para a correlação de indicadores, TTPs e infraestrutura adversária.
+Este Relatório de Inteligência descreve as principais informações sobre a ameaça **Lumma Stealer** e tem como objetivo auxiliar na tomada de decisão de riscos cibernéticos. A análise teve início a partir da investigação do hash **`65eb366739361b97fb68c0ac4b9fbaad2ac26e0c30a21ef0ad0a756177e22e94`**, identificado em diferentes fontes de Threat Intelligence, que serviu como ponto de partida para a correlação de indicadores, TTPs e infraestrutura adversária.
 :::
 
 # Sumário
@@ -89,7 +89,7 @@ Este Relatório de Inteligência descreve as principais informações sobre a am
 ::: {.indented}
 O **Lumma Stealer**, também conhecido como **LummaC2**, é um malware do tipo Infostealer, identificado desde 2022, que opera sob um modelo de Malware-as-a-Service (MaaS). Desde Janeiro deste ano, observou-se um crescimento exponencial e uma sofisticação operacional, tornando-o um dos infostealers mais dominantes no mercado.
 
-A relevância deste relatório reside na necessidade de compreender as diversas Táticas, Técnicas e Procedimentos (TTPs) empregadas pelo Lumma Stealer, que incluem o uso de sites falsos de CAPTCHA (`ClickFix`), `malvertising` e a exploração de plataformas legítimas para distribuição. Tornando-o um risco persistente para organizações em todos os Setores. 
+A relevância deste relatório reside na necessidade de compreender as diversas Táticas, Técnicas e Procedimentos (TTPs) empregadas pelo Lumma Stealer, que incluem o uso de sites falsos de CAPTCHA (`ClickFix`), malvertising e a exploração de plataformas legítimas para distribuição. Tornando-o um risco persistente para organizações em todos os Setores. 
 
 Suas capacidades visam o roubo de credenciais de navegadores, carteiras de criptomoedas e outros dados sensíveis e, portanto, a análise aprofundada da cadeia de infeção deste malware é crucial para fortalecer as defesas e proteger as organizações contra esta ameaça.
 :::
@@ -102,12 +102,12 @@ Suas capacidades visam o roubo de credenciais de navegadores, carteiras de cript
 - Usa binários legítimos (LOLBINs), injeção de processos e técnicas de ofuscação para evitar detecção.
 - Rede de C2 descentralizada, com uso de serviços como Cloudflare, Telegram e até Steam para comunicação.
 - Mesmo após operações de derrubada, atores tendem a se reorganizar, mostrando alta resiliência no ecossistema de cibercrime.
-- Adotar MFA resistente a phishing, Reforçar controles de endpoint, Treinar usuários contra phishing/engenharia social e Restringir a utilização de LOLBINs estão entre as recomendações de proteção.
+- Adotar MFA resistente a phishing, reforçar controles de endpoint, treinar usuários contra phishing/engenharia social e restringir a utilização de LOLBINs estão entre as recomendações de proteção.
 :::
 
 # Detalhes da Ameaça
 ::: {.indented}
-A função principal do Lumma Stealer é exfiltrar uma vasta variedade de dados sensíveis de máquinas de vítimas. O malware é escrito numa combinação de *C++* e *ASM*, e é continuamente atualizado com funcionalidades avançadas para evadir a deteção e maximizar o roubo de dados. O seu modelo MaaS permite que afiliados personalizem e implementem o malware facilmente.
+A função principal do Lumma Stealer é exfiltrar uma vasta variedade de dados sensíveis de máquinas de vítimas. O malware é escrito numa combinação de **C++** e **ASM** e é continuamente atualizado com funcionalidades avançadas para evadir a deteção e maximizar o roubo de dados. O seu modelo MaaS permite que afiliados personalizem e implementem o malware facilmente.
 :::
 
 Os principais tipos de dados visados incluem:
@@ -116,11 +116,11 @@ Os principais tipos de dados visados incluem:
 - **Carteiras de Criptomoeda**: Dados de numerosas aplicações de carteira de criptomoeda e extensões de navegador, como MetaMask, Electrum e Exodus.
 - **Tokens de Autenticação de Dois Fatores (2FA)**: Informações de extensões 2FA, como Authenticator, potencialmente permitindo que os atacantes contornem a autenticação multifator.
 - **Informações do Sistema**: Dados detalhados sobre a máquina comprometida, incluindo informações da CPU, versão do SO, localidade do sistema e aplicações instaladas.
-- **Dados de Aplicações**: Credenciais e dados de várias aplicações, incluindo clientes FTP, clientes de e-mail e aplicações de mensagens como Telegram, bem como AnyDesk ou KeePass.
-- **Documentos Genéricos**: Ficheiros encontrados em perfis de uusários e outros diretórios comuns, especialmente aqueles com extensões .pdf, .docx ou .rtf.
+- **Dados de Aplicações**: Credenciais e dados de várias aplicações, incluindo clientes FTP, clientes de e-mail e aplicações como Telegram, AnyDesk ou KeePass.
+- **Documentos Genéricos**: Arquivos encontrados em perfis de usuários e outros diretórios comuns, especialmente aqueles com extensões .pdf, .docx ou .rtf.
 
 ::: {.indented}
-O malware emprega uma cadeia de execução multi-estágio, frequentemente "fileless", utilizando scripts PowerShell ofuscados e Binários "Living Off the Land" (LOLBINs) como `mshta.exe` para evadir a deteção. O Lumma Stealer é conhecido por usar "Binary Padding" (adição de dados inúteis para aumentar o tamanho do ficheiro e dificultar a análise) e "Indirect Control Flow" (cálculo dinâmico de endereços de salto) como técnicas de ofuscação. Observou-se também, que o Lumma Stealer pode usar "process hollowing" para injetar a sua carga maliciosa em processos legítimos do sistema como `msbuild.exe`, `regasm.exe`, `regsvcs.exe` e `explorer.exe`, disfarçando sua execução.
+O malware emprega uma cadeia de execução multi-estágio, frequentemente "`fileless`", utilizando scripts PowerShell ofuscados e Binários "Living Off the Land" (LOLBINs) como `mshta.exe` para evadir a deteção. O Lumma Stealer é conhecido por usar "Binary Padding" (adição de dados inúteis para aumentar o tamanho do arquivo e dificultar a análise) e "Indirect Control Flow" (cálculo dinâmico de endereços de salto) como técnicas de ofuscação. Observou-se também, que o Lumma Stealer pode usar "process hollowing" para injetar a sua carga maliciosa em processos legítimos do sistema como `msbuild.exe`, `regasm.exe`, `regsvcs.exe` e `explorer.exe`, disfarçando sua execução.
 :::
 
 # Diamond Model
@@ -128,21 +128,21 @@ O malware emprega uma cadeia de execução multi-estágio, frequentemente "filel
     \centering
     \includegraphics[width=0.7\textwidth]{diamond_model.png}
     \captionsetup{justification=centering, singlelinecheck=false, format=plain}
+    \caption{Diamond Model}
 \end{figure}
-## Adversary
+## Adversário
 ::: {.indented}
 - **País**: Rússia.
 - **Motivação**: Ganho financeiro (Malware-as-a-Service).
 - **Plataformas utilizadas**: Fóruns clandestinos (RAMP, XSS) e Telegram.
 :::
-## Infrastructure
+## Infraestrutura
 ::: {.indented}
 - **Entrega de payloads**: Bitbucket, GitHub e S3/CDN.
 - **Servidores C2**: Diversos TLDs (.cyou, .shop, .biz, .xyz, .icu, .store, .click, etc.).
 - **Hospedagem**: Cloudflare.
-- **Serviços auxiliares**: FileZilla Servers, perfis falsos em plataformas legítimas.
 :::
-## Capability
+## Capacidade
 ::: {.indented}
 - **Distribuição**: Phishing, malvertising, *ClickFix* e cracks de software.
 - **Coleta de dados**: Credenciais de navegadores, cookies, carteiras de criptomoedas, tokens 2FA, informações de sistema, clipboard e dados financeiros.
@@ -154,7 +154,7 @@ O malware emprega uma cadeia de execução multi-estágio, frequentemente "filel
   - Bypass AMSI, técnicas anti-sandbox/debug.
   - Uso de AI/ML para evitar detecção e restaurar cookies expirados.
 :::
-## Victim
+## Vítima
 ::: {.indented}
 - **Regiões afetadas**: Europa, Américas (EUA, Brasil, Argentina, Colômbia), Ásia (Índia, Japão, Sudeste Asiático).
 - **Setores principais**: Financeiro, Tecnologia, Saúde, Educação, Transporte e  Manufatura.
@@ -171,7 +171,7 @@ A vítima acessa um site malicioso (via phishing, malvertising ou links manipula
 O usuário é instruído a copiar e colar um comando na caixa "Executar" do Windows, acreditando tratar-se de uma etapa de verificação legítima.
 
 - **Estágio 2**: Execução Inicial via Windows Run + MSHTA
-O comando acionado pela vítima invoca o mshta.exe, um utilitário legítimo do Windows, que baixa e executa um ficheiro HTA ofuscado hospedado em um servidor remoto.
+O comando acionado pela vítima invoca o `mshta.exe`, um utilitário legítimo do Windows, que baixa e executa um ficheiro HTA ofuscado hospedado em um servidor remoto.
 Essa etapa serve como loader inicial para a cadeia de infecção.
 
 - **Estágio 3**: PowerShell Obfuscado
@@ -186,7 +186,7 @@ Nesta fase, o malware já está implantado no sistema, pronto para roubar creden
     \centering
     \includegraphics[width=0.9\textwidth]{infectionchain.pdf}
     \captionsetup{justification=centering, singlelinecheck=false, format=plain}
-    \caption{Lumma stealer infection chain}
+    \caption{Lumma stealer infection chain. Fonte: Netskope}
 \end{figure}
 
 # Vítimas
@@ -200,7 +200,6 @@ Entre os setores mais afetados, destacam-se:
 - **Educação**
 - **Energia e Manufatura**
 :::
-
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{lumma_heatmap.jpeg}
@@ -210,8 +209,8 @@ Entre os setores mais afetados, destacam-se:
 
 # Análise do Hash Encontrado
 ::: {.indented}
-Segue abaixo um breve compilado dos itens encontrados a partir da investigação do hash
-**`65eb366739361b97fb68c0ac4b9fbaad2ac26e0c30a21ef0ad0a756177e22e94`**.
+Segue abaixo um breve compilado dos itens encontrados a partir da investigação do hash fornecido:
+**\hash{65eb366739361b97fb68c0ac4b9fbaad2ac26e0c30a21ef0ad0a756177e22e94}**.
 
 - **MD5**: 45435e186d4136209f9af26548ae6a32
 - **SHA-1**: 211d4f56edfa632a76d3a03c69898dcd2fb95259
@@ -259,8 +258,7 @@ Segue abaixo um breve compilado dos itens encontrados a partir da investigação
 :::
 
 ::: {.indented}
-Portanto, após a análise, conclui-se que o hash corresponde a uma amostra confirmada do **Lumma Stealer**, demonstrando forte capacidade de coleta de credenciais, uso do Telegram para exfiltração e uso de infraestrutura baseada em domínios descartáveis. O volume de detecções por diferentes AVs, aliado às observações em múltiplos sandboxes (Joe Sandbox, VMRay, ANY.RUN), validam a classificação como ameaça **crítica e persistente**, frequentemente utilizada como vetor de **acesso inicial para grupos de ransomware**.
-:::
+Portanto, após a análise, conclui-se que o hash corresponde a uma amostra confirmada do **Lumma Stealer**, demonstrando forte capacidade de coleta de credenciais, uso do Telegram para exfiltração e uso de infraestrutura baseada em domínios descartáveis. O volume de detecções por diferentes AVs, aliado às observações em múltiplos sandboxes (Joe Sandbox, VMRay, ANY.RUN), validam a classificação como ameaça **crítica e persistente**.
 
 # Técnicas, Táticas e Procedimentos (TTPs)
 \begin{table}[htb!]
@@ -288,33 +286,37 @@ Portanto, após a análise, conclui-se que o hash corresponde a uma amostra conf
   \end{tabularx}
 \end{table}
 
+# Artefatos
 
-# Artifacts
+## Artefatos de Endpoint
+| Tipo                | Descrição                                                          |
+| ------------------- | -------------------------------------------------------------------|
+| Chave de Registo    | `HKCU\Software\Microsoft\Windows\Run`                              |
+| Arquivos dropados   | `%AppData%\Roaming\lumma\client.exe`                               | 
+| Arquivos dropados   | `%AppData%\Local\Temp\*.accde`                                     |
+| Arquivos dropados   | `%AppData%\Local\Temp\Mars.accde.bat`                              |
+| Arquivos dropados   | `%AppData%\Local\Temp\Alexander.com`                               |
+| Arquivos dropados   | `%AppData%\Local\Temp\o.a3x`                                       |
 
-## Endpoint Artifacts
-| Tipo                | Descrição                                                             | MITRE TTP\`s                        |
-| ------------------- | --------------------------------------------------------------------- | ----------------------------------- |
-| Chave de Registo    | `HKCU\Software\Microsoft\Windows\Run`                                 | Persistência – T1547.001            |
-| Ficheiro Caído      | `%AppData%\Roaming\lumma\client.exe`                                  | Execução, Persistência – T1059      |
-| Ficheiro Caído      | `%AppData%\Local\Temp\*.accde`                                        | Execução, Evasão – T1059, T1027     |
-| Ficheiro Caído      | `%AppData%\Local\Temp\Mars.accde.bat`                                 | Script batch para gerar executáveis |
-| Ficheiro Caído      | `%AppData%\Local\Temp\Alexander.com`                                  | Executável AutoIT compilado         |
-| Ficheiro Caído      | `%AppData%\Local\Temp\o.a3x`                                          | Script AutoIT compilado             |
+## Artefatos de Rede
+| Tipo                 | Descrição                                                     |
+| -------------------- | ------------------------------------------------------------- |
+| User-Agent           | `TeslaBrowser/5.5`                                            |
+| Domínio C2           | `swenku[.]xyz`                                                |
+| Domínio C2           | `baviip[.]xyz`                                                |
+| Domínio C2           | `ropyj[.]xyz`                                                 |
+| Domínio C2           | `dogalmedical[.]org`                                          |
+| URL Maliciosa        | `hxxps://payment-confirmation.82736[.]store/pgg46`            |
+| URL Maliciosa        | `hxxps://booking[.]procedeed-verific[.]com/goo_pdf`           |
+| URL Maliciosa        | `.robazumuxi.com`                                             |
+| URL Maliciosa        | `.berapt-medii.com`                                           |
+| URL de CAPTCHA falsa | `gustavu[.]shop/path0forwarding-stepv2.html`                  |
+| URL de CAPTCHA falsa | `sos-de-muc-1[.]exo[.]io/after/clear/then/continue-ri-1.html` |
+| URL de CAPTCHA falsa | `retrosome[.]shop/proceed-to-next-page-riii2.html`            |
+| URL de CAPTCHA falsa | `jazmina[.]shop/pass-this-step-to-go-next-riii2.html`         |
+| URL de CAPTCHA falsa | `norpor[.]shop/surfing-toward-next-pagev2.html`               |
 
-## Network Artifacts
-| Tipo            | Descrição |
-| --------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| User-Agent      | `TeslaBrowser/5.5` |
-| Domínio C2      | `swenku[.]xyz` |
-| Domínio C2      | `baviip[.]xyz` |
-| Domínio C2      | `ropyj[.]xyz` |
-| Domínio C2      | `dogalmedical[.]org` |
-| URL Maliciosa   | `hxxps://payment-confirmation.82736[.]store/pgg46` |
-| URL Maliciosa   | `hxxps://booking[.]procedeed-verific[.]com/goo_pdf` |
-| URL Maliciosa   | `.robazumuxi.com` |
-| URL Maliciosa   | `.berapt-medii.com` |
-
-## Malware Hashes
+## Hashes
 \begin{table}[htb!]
   \centering
   \renewcommand{\arraystretch}{1.1}
@@ -323,17 +325,24 @@ Portanto, após a análise, conclui-se que o hash corresponde a uma amostra conf
     \textbf{Tipo} & \textbf{Hash do Arquivo} & \textbf{Descrição}\\
     \midrule
     SHA256 & \seqsplit{65eb366739361b97fb68c0ac4b9fbaad2ac26e0c30a21ef0ad0a756177e22e94} & Lumma Stealer v4 \\
-    SHA256 & \seqsplit{7b3bd767ff532b3593e28085940646f145b9f32f2ae97dfa7cdd652a6494257d} & Lumma Stealer variante \\
+    SHA256 & \seqsplit{7b3bd767ff532b3593e28085940646f145b9f32f2ae97dfa7cdd652a6494257d} & Variante Lumma Stealer \\
     SHA256 & \seqsplit{ba09a680cc482c7004f3c1936f66f5c9305df04315e950119fb8b013b6e08f13} & Amostra analisada (Vertan.exe) \\
     SHA1   & \seqsplit{ec69088d1409444de60c3c6aba5021194839d7ba} & Executável Lumma \\
     SHA1   & \seqsplit{2c8ec98431a788f18f1865cc7d742deb741a927b3} & Script AutoIT \texttt{.a3x} \\
     SHA1   & \seqsplit{d7cd79911d2fbb575777b26ecf32da109d65291f} & Script \texttt{.bat} \\
-    SHA256 & \seqsplit{bfdffcee5951982691af1678f899b39b851b6fd3167d3354c62385fb9b7eac02} & Lumma Stealer -- família \\
+    SHA256 & \seqsplit{bfdffcee5951982691af1678f899b39b851b6fd3167d3354c62385fb9b7eac02} & Variante Lumma Stealer \\
+    MD5    & \seqsplit{93b8729bbb1d413bfd44436d0c544116} & Script HTA (\texttt{.hta}) \\
+    MD5    & \seqsplit{a181e4f186f156cbb238984f8a5bf4e6} & Script HTA (\texttt{.hta}) \\
+    MD5    & \seqsplit{a151c8fd5326c1670c0ea3245d01f9a8} & Script PowerShell (\texttt{.ps1}) \\
+    MD5    & \seqsplit{00317b9ff31f7aa93f7c7891e0202331} & Script PowerShell (\texttt{.ps1}) \\
+    MD5    & \seqsplit{82e5e8ec8e4e04f4d5808077f38752ba} & Carga do Lumma Stealer \\
+    MD5    & \seqsplit{14d8486f3f63875ef93cfd240c5dc10b} & Carga do Lumma Stealer \\
+    MD5    & \seqsplit{0ba2afe43cc4deed266354b1c2cfb5a7} & Carga do Lumma Stealer \\
     \bottomrule
   \end{tabularx}
 \end{table}
 
-## Vulnerabilities
+## Vulnerabilidades
 \begin{table}[htb!]
   \centering
   \renewcommand{\arraystretch}{1.1}
@@ -341,7 +350,7 @@ Portanto, após a análise, conclui-se que o hash corresponde a uma amostra conf
     \toprule
     \textbf{CVE \#} & \textbf{CVSS} & \textbf{Patch (S/N)} & \textbf{Remediation} & \textbf{Date Reported}\\
     \midrule
-    CVE-2017-11882 & 7.8 & S & Aplicar patch Microsoft Office KB2553204 & 2017-11-15 \\
+    CVE-2017-11882 & 7.8 & S & Aplicar KB2553204 & 2017-11-15 \\
     CVE-2021-40444 & 8.8 & S & Bloquear controles ActiveX, aplicar patch MS & 2021-09-07 \\
     \bottomrule
   \end{tabularx}
@@ -380,9 +389,9 @@ Portanto, após a análise, conclui-se que o hash corresponde a uma amostra conf
 1. **Conscientização do usuário:** Educar os colaboradores para reconhecer phishing, malvertising e táticas de engenharia social como o “ClickFix”. Enfatizar a cautela ao baixar software de fontes não confiáveis ou executar comandos a partir de sites.
 2. **Solução EDR (Endpoint Detection and Response):** Implementar e configurar uma solução EDR para monitorar comportamentos anômalos de processos.
 3. **Restringir a execução de scripts:** Utilizar políticas de controle de aplicações para restringir o PowerShell e outras linguagens de script aos usuários que realmente precisem delas para suas funções.
-4. **Filtragem de rede:** Bloquear conexões a domínios maliciosos conhecidos e a domínios recentemente registrados, frequentemente usados para infraestrutura de C2. Usar filtragem DNS e gateways web para prevenir acesso a sites de distribuição de malware.
+4. **Filtragem de rede:** Bloquear conexões a domínios maliciosos conhecidos e a domínios frequentemente usados para infraestrutura de C2. Usar filtragem DNS e Web Gateways para prevenir acesso a sites de distribuição de malware.
 5. **Higiene de credenciais:** Incentivar o uso de gerenciadores de senhas em vez de armazenar credenciais nos navegadores. Exigir Autenticação Multifator (MFA) em todos os serviços críticos para mitigar o impacto de credenciais roubadas.
-6. **Atualizações regulares de software:** Manter sistemas operacionais, navegadores e demais softwares atualizados e com patches para proteger contra vulnerabilidades que possam ser exploradas em ataques multiestágio.
+6. **Atualizações regulares de software:** Manter sistemas operacionais, navegadores e demais softwares atualizados e com patches para proteger contra vulnerabilidades que possam ser exploradas em ataques.
 7. **Autenticação resistente a phishing:** Utilizar métodos de autenticação resistentes a phishing, como tokens FIDO ou chaves de acesso (passkeys) com Microsoft Authenticator (quando suportado).
 :::
 

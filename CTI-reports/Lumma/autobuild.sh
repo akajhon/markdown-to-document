@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
+# pandoc lumma_report.md -o lumma_report.pdf --template eisvogel --pdf-engine xelatex -V mainfont="DejaVu Serif" -V sansfont="DejaVu Sans" -V monofont="DejaVu Sans Mono"
 FILE="${FILE:-lumma_report.md}"
 PDF="${PDF:-lumma_report.pdf}"
 
